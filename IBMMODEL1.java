@@ -197,18 +197,16 @@ public class IBMMODEL1 {
 							total.put(engWords.get(j), tempValTOTAL+tempNew);
 						}
 					}
-
-
-					for(int j=0;j<engWords.size();++j){
-						for(int i=0;i<gerWords.size();++i){
-							String tempKey = gerWords.get(i)+"|"+engWords.get(j);
-							double tempVal = count.get(tempKey)/total.get(engWords.get(j));
-							probsT.put(tempKey, tempVal);
-						}
-					}
 				}
 				germanFile2.close();
 				englishFile2.close();
+				
+				for(String key : count.keySet()){
+					String temp = key.substring(key.indexOf("|")+1,key.length());
+					double tmp = total.get(temp);
+					double tempVal = count.get(key)/tmp;
+					probsT.put(key, tempVal);
+				}
 			}
 			
 			ArrayList<String> testArray	= new ArrayList<String>();
